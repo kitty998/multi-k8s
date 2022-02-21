@@ -23,4 +23,3 @@ after_succes:
   - docker push katarinacimesa/multi-nginx
   - docker push katarinacimesa/multi-server
   - docker push katarinacimesa/multi-worker 
-  
