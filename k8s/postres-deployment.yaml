@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment 
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      component: postgres 
+  template:
+    metadata:
+      labels:
+        component: postgres
+    spec:
+      volumes:
+        - name: postgres-storage 
+          persistentVolumeClaim:
+            claimName: database-persistent-volume-claim 
+          # i need a storage which satisfies everything laid out by database-persistent-volume-claim
+          # and i will call it postgres-storage
+      containers:
+        - name: postgres
+          image: postgres
+          ports: 
+            - containerPort: 5432
+            # need environment variables for stuff to be connected to it
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+              # where inside the container this storage should be made available 
+              # everything inside the container that is stored in this folder is actually stored in the volume (our hard drive)
+              subPath: postgres 
+              # this sub folder in the persistentvolume
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom: 
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD

@@ -1,0 +1,14 @@
+apiVersion: v1 
+kind: Service 
+metadata:
+  name: client-cluster-ip-service
+spec:
+  type: ClusterIP 
+  selector:
+    component: web
+  ports:
+    - port: 3000 # everything inside the entire cluster will try to communicate with this port in ClusterIP
+      targetPort: 3000 # port on the target pod we are providing the access to
+      # they can be different, we could reroute traffic
+      # nodeport does not exist in this case as clusterIP is not accessible from the outside world
+      # ClusterIP accepts traffic on port, and forwards it to targetPort
