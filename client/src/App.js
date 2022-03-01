@@ -17,11 +17,7 @@ function App() {
             target="_blank"
             rel="noopener noreferrer"
           >
-<<<<<<< HEAD
             Learn Kubernetes!
-=======
-            Learn Kubernetes!
->>>>>>> eaf4676d76a34ac86374e176b29ec1dfc721c79f
           </a>
           <Link to="/">Home</Link>
           <Link to="/otherpage">Other Page</Link>
